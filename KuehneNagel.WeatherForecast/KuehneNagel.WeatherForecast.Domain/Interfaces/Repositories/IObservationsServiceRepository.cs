@@ -7,6 +7,6 @@ namespace KuehneNagel.WeatherForecast.Domain.Interfaces.Repositories
         IXmlRepositoryBase<observations>,
         IServiceRepositoryBase<observations>
     {
-
+        observationsStation GetStationData(string placeName);
     }
 }

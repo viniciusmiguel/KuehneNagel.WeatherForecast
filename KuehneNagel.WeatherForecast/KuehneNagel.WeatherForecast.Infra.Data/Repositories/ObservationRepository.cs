@@ -10,5 +10,17 @@ namespace KuehneNagel.WeatherForecast.Infra.Data.Repositories
         public ObservationRepository(EfContext databaseContext) : base(databaseContext)
         {
         }
+
+        public void AddOrUpdate(Observation observation)
+        {
+            if(DbSet.Find(observation.Id) != null)
+            {
+                Update(observation);
+            }
+            else
+            {
+                Create(observation);
+            }
+        }
     }
 }

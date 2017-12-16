@@ -12,9 +12,12 @@ namespace KuehneNagel.WeatherForecast.Infra.Data.DbContexts
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.json",true)
                 .Build();
-            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseSqlServer(
+                config.GetConnectionString("DefaultConnection") != null ? 
+                config.GetConnectionString("DefaultConnection") : 
+                "data source=.\\SQLEXPRESS;Integrated Security=SSPI;database = weather;User Instance = false");
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

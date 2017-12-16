@@ -4,5 +4,6 @@ namespace KuehneNagel.WeatherForecast.Domain.Interfaces.Repositories
 {
     public interface IObservationRepository : IRepositoryBase<Observation, int>      
     {
+        void AddOrUpdate(Observation observation);
     }
 }

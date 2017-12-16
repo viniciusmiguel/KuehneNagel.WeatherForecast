@@ -7,19 +7,26 @@ namespace KuehneNagel.WeatherForecast.Infra.Data.Mappings
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Forecast> builder)
         {
-            //TODO: DbMapConfig
-            //builder.Property(c => c.)
-            //    .HasColumnName("Id");
+            builder.Property(c => c.Id)
+                .HasColumnName("Id")
+                .IsRowVersion()
+                .IsRequired();
 
-            //builder.Property(c => c.)
-            //    .HasColumnType("varchar(100)")
-            //    .HasMaxLength(100)
-            //    .IsRequired();
+            builder.Property(c => c.MinDayTemperature)
+                .HasColumnType("smallmoney")
+                .IsRequired();
 
-            //builder.Property(c => c.)
-            //    .HasColumnType("varchar(100)")
-            //    .HasMaxLength(11)
-            //    .IsRequired();
+            builder.Property(c => c.MaxDayTemperature)
+                .HasColumnType("smallmoney")
+                .IsRequired();
+
+            builder.Property(c => c.MinNightTemperature)
+                .HasColumnType("smallmoney")
+                .IsRequired();
+
+            builder.Property(c => c.MaxNightTemperature)
+                .HasColumnType("smallmoney")
+                .IsRequired();
         }
     }
 }

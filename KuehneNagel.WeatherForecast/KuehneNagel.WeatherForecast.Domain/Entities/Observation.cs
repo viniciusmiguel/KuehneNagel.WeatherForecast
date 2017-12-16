@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using System;
 
 namespace KuehneNagel.WeatherForecast.Domain.Entities
 {
     public class Observation
     {
+        public DateTime Id { get; set; }
+        public double AirTemperature { get; set; }
     }
 }
