@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KuehneNagel.WeatherForecast.Application\KuehneNagel.WeatherForecast.Application.csproj" />
+    <ProjectReference Include="..\KuehneNagel.WeatherForecast.Domain\KuehneNagel.WeatherForecast.Domain.csproj" />
+    <ProjectReference Include="..\KuehneNagel.WeatherForecast.Infra.Data\KuehneNagel.WeatherForecast.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>

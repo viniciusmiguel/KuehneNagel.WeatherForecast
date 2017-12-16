@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Presentation", "0 - Presentation", "{75317E04-6BE0-499F-8EC2-E3D144A709D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Application", "1 - Application", "{6C454555-DA5E-4F74-82D7-8D1793AA9455}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", "{BA788414-831A-4BC2-BD2A-33587D538942}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infrastructure", "3 - Infrastructure", "{65F36604-6F07-4919-B967-C78BCF245D3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuehneNagel.WeatherForecast.Application", "KuehneNagel.WeatherForecast.Application\KuehneNagel.WeatherForecast.Application.csproj", "{670B6A11-7FD7-4D64-8EFD-579C6C65BA52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuehneNagel.WeatherForecast.Domain", "KuehneNagel.WeatherForecast.Domain\KuehneNagel.WeatherForecast.Domain.csproj", "{D2BA8AC6-0946-4180-B315-5F42AC1A113A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuehneNagel.WeatherForecast.Infra.Data", "KuehneNagel.WeatherForecast.Infra.Data\KuehneNagel.WeatherForecast.Infra.Data.csproj", "{94015977-4EB6-4121-8A39-63A17D01490D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuehneNagel.WeatherForecast.Infra.IoC", "KuehneNagel.WeatherForecast.Infra.IoC\KuehneNagel.WeatherForecast.Infra.IoC.csproj", "{13879933-44C5-43AA-9B59-F3608C03ABF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuehneNagel.WeatherForecast.Frontend", "KuehneNagel.WeatherForecast.Frontend\KuehneNagel.WeatherForecast.Frontend.csproj", "{6BA9FA06-8C51-4F8F-8ED1-F8730FD741F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{670B6A11-7FD7-4D64-8EFD-579C6C65BA52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{670B6A11-7FD7-4D64-8EFD-579C6C65BA52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{670B6A11-7FD7-4D64-8EFD-579C6C65BA52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{670B6A11-7FD7-4D64-8EFD-579C6C65BA52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BA8AC6-0946-4180-B315-5F42AC1A113A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BA8AC6-0946-4180-B315-5F42AC1A113A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BA8AC6-0946-4180-B315-5F42AC1A113A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BA8AC6-0946-4180-B315-5F42AC1A113A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94015977-4EB6-4121-8A39-63A17D01490D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94015977-4EB6-4121-8A39-63A17D01490D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94015977-4EB6-4121-8A39-63A17D01490D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94015977-4EB6-4121-8A39-63A17D01490D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13879933-44C5-43AA-9B59-F3608C03ABF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13879933-44C5-43AA-9B59-F3608C03ABF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13879933-44C5-43AA-9B59-F3608C03ABF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13879933-44C5-43AA-9B59-F3608C03ABF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BA9FA06-8C51-4F8F-8ED1-F8730FD741F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BA9FA06-8C51-4F8F-8ED1-F8730FD741F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BA9FA06-8C51-4F8F-8ED1-F8730FD741F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BA9FA06-8C51-4F8F-8ED1-F8730FD741F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{670B6A11-7FD7-4D64-8EFD-579C6C65BA52} = {6C454555-DA5E-4F74-82D7-8D1793AA9455}
+		{D2BA8AC6-0946-4180-B315-5F42AC1A113A} = {BA788414-831A-4BC2-BD2A-33587D538942}
+		{94015977-4EB6-4121-8A39-63A17D01490D} = {65F36604-6F07-4919-B967-C78BCF245D3D}
+		{13879933-44C5-43AA-9B59-F3608C03ABF3} = {65F36604-6F07-4919-B967-C78BCF245D3D}
+		{6BA9FA06-8C51-4F8F-8ED1-F8730FD741F2} = {75317E04-6BE0-499F-8EC2-E3D144A709D5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39C43AA7-BB16-46A9-BFB0-9B663D36B3C8}
+	EndGlobalSection
+EndGlobal
