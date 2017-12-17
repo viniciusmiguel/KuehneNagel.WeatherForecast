@@ -9,8 +9,10 @@ using System.Collections.Generic;
 
 namespace KuehneNagel.WeatherForecast.Infra.Data.Repositories
 {
+    /// <inheritdoc />
     public class ForecastsServiceRepository : XmlRepositoryBase<forecasts>, IForecastsServiceRepository
     {
+        /// <inheritdoc />
         public void GetServiceData()
         {
             var config = new ConfigurationBuilder()
@@ -19,7 +21,7 @@ namespace KuehneNagel.WeatherForecast.Infra.Data.Repositories
             .Build();
             using (WebClient client = new WebClient())
             {          
-                Xml = client.DownloadString(
+                RawData = client.DownloadString(
                     config.GetConnectionString("ForecastService") != null ? 
                     config.GetConnectionString("ForecastService") 
                     : "http://www.ilmateenistus.ee/ilma_andmed/xml/forecast.php");

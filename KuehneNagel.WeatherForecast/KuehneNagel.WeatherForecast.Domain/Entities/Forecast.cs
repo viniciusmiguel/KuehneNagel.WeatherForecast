@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace KuehneNagel.WeatherForecast.Domain.Entities
 {
@@ -6,7 +7,10 @@ namespace KuehneNagel.WeatherForecast.Domain.Entities
     {
         public Forecast() { }
 
-        public DateTime Id { get; set; }
+        [Key]
+        public int Id { get; set; }
+
+        public DateTime Date { get; set; }
 
         public double MinDayTemperature { get; set; }
 

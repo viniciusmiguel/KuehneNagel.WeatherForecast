@@ -8,24 +8,26 @@ namespace KuehneNagel.WeatherForecast.Infra.Data.Mappings
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Forecast> builder)
         {
             builder.Property(c => c.Id)
-                .HasColumnName("Id")
-                .IsRowVersion()
+                .HasColumnType("int");
+
+            builder.Property(c => c.Date)
+                .HasColumnType("datetime")
                 .IsRequired();
 
             builder.Property(c => c.MinDayTemperature)
-                .HasColumnType("smallmoney")
+                .HasColumnType("float")
                 .IsRequired();
 
             builder.Property(c => c.MaxDayTemperature)
-                .HasColumnType("smallmoney")
+                .HasColumnType("float")
                 .IsRequired();
 
             builder.Property(c => c.MinNightTemperature)
-                .HasColumnType("smallmoney")
+                .HasColumnType("float")
                 .IsRequired();
 
             builder.Property(c => c.MaxNightTemperature)
-                .HasColumnType("smallmoney")
+                .HasColumnType("float")
                 .IsRequired();
         }
     }

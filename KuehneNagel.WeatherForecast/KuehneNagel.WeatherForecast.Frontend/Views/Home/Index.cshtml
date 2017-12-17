@@ -9,37 +9,67 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Weather Forecast For Tallinn - Harku</title>
+    <style>
+        .forecast-col {
+            width:100px;
+            text-align:center;
+            display: inline-block;
+        }
+
+        .forecast-row {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
 <div>
-    <h4>WeatherForecastViewModel</h4>
+    <h4>Weather Forecast For Tallinn - Harku</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CurrentTemperature)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CurrentTemperature)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CurrentTemperatureMatchForecast)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CurrentTemperatureMatchForecast)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CurrentDayForecastAccuracy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CurrentDayForecastAccuracy)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <div class="actual-temps">
+        Current Temperature: @Html.DisplayFor(model => model.CurrentTemperature) <br/>
+
+        Current Temperature Match Forecast: @Html.DisplayFor(model => model.CurrentTemperatureMatchForecast)<br />
+
+        Current Day Forecast Accuracy: @Html.DisplayFor(model => model.CurrentDayForecastAccuracy)<br />
+    </div>
+    <div class="forecast-container">
+        <div class="forecast-row">
+            <div class="forecast-col"></div>
+            <div class="forecast-col">Today</div>
+            <div class="forecast-col">Tomorow</div>
+            <div class="forecast-col">After Tomorow</div>
+        </div>
+        <div class="forecast-row">
+            <div class="forecast-col">Max Day</div>
+            @foreach (var maxDay in Model.MaxDayTemperatures)
+        {
+            <div class="forecast-col">@maxDay</div>
+    }
+        </div>
+        <div class="forecast-row">
+            <div class="forecast-col">Min Day</div>
+            @foreach (var minDay in Model.MinDayTemperatures)
+        {
+            <div class="forecast-col">@minDay</div>
+    }
+        </div>
+        <div class="forecast-row">
+            <div class="forecast-col">Max Night</div>
+            @foreach (var maxNight in Model.MaxNightTemperatures)
+        {
+            <div class="forecast-col">@maxNight</div>
+    }
+        </div>
+        <div class="forecast-row">
+            <div class="forecast-col">Max Night</div>
+            @foreach (var minNight in Model.MinNightTemperatures)
+        {
+            <div class="forecast-col">@minNight</div>
+    }
+        </div>
+    </div>
 </div>
 </body>
 </html>

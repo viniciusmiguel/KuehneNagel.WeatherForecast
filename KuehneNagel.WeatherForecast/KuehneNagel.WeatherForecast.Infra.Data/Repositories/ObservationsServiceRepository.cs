@@ -5,10 +5,13 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Net;
 using System.Linq;
+
 namespace KuehneNagel.WeatherForecast.Infra.Data.Repositories
 {
+    /// <inheritdoc />
     public class ObservationsServiceRepository : XmlRepositoryBase<observations>, IObservationsServiceRepository
     {
+        /// <inheritdoc />
         public void GetServiceData()
         {
             var config = new ConfigurationBuilder()
@@ -17,13 +20,13 @@ namespace KuehneNagel.WeatherForecast.Infra.Data.Repositories
                 .Build();
             using (WebClient client = new WebClient())
             {
-                Xml = client.DownloadString(
+                RawData = client.DownloadString(
                     config.GetConnectionString("ObservationsService") != null ? 
                     config.GetConnectionString("ObservationsService") :
                     "http://www.ilmateenistus.ee/ilma_andmed/xml/observations.php");
             }
         }
-
+        /// <inheritdoc />
         public observationsStation GetStationData(string placeName)
         {
             GetServiceData();

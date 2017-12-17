@@ -11,12 +11,12 @@ namespace KuehneNagel.WeatherForecast.Application.ViewModels
 
         public double CurrentDayForecastAccuracy { get; set; }
 
-        public List<double> MinDayTemperatures { get; set; }
+        public IEnumerable<double> MinDayTemperatures { get; set; }
 
-        public List<double> MaxDayTemperatures { get; set; }
+        public IEnumerable<double> MaxDayTemperatures { get; set; }
 
-        public List<double> MinNightTemperatures { get; set; }
+        public IEnumerable<double> MinNightTemperatures { get; set; }
 
-        public List<double> MaxNightTemperatures { get; set; }
+        public IEnumerable<double> MaxNightTemperatures { get; set; }
     }
 }

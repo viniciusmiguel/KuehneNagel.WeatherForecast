@@ -4,6 +4,7 @@ using KuehneNagel.WeatherForecast.Domain.Interfaces.Services;
 
 namespace KuehneNagel.WeatherForecast.Application.Services
 {
+    /// <inheritdoc />
     public class WeatherForecastAppService : IWeatherForecastAppService
     {
         private readonly IWeatherForecastAggregateService WeatherForecastAggregateService;
@@ -11,6 +12,7 @@ namespace KuehneNagel.WeatherForecast.Application.Services
         {
             WeatherForecastAggregateService = weatherForecastAggregateService;
         }
+        /// <inheritdoc />
         public WeatherForecastViewModel GetWeatherData()
         {
             var viewModel = new WeatherForecastViewModel();

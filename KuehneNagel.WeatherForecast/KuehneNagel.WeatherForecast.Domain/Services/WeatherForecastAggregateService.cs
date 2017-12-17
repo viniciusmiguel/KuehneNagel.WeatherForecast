@@ -10,6 +10,7 @@ using System.IO;
 
 namespace KuehneNagel.WeatherForecast.Domain.Services
 {
+    /// <inheritdoc />
     public class WeatherForecastAggregateService : IWeatherForecastAggregateService
     {
         private readonly IForecastRepository ForecastRepository;
@@ -27,7 +28,8 @@ namespace KuehneNagel.WeatherForecast.Domain.Services
             ForecastsServiceRepository = forecastsServiceRepository;
             ObservationsServiceRepository = observationsServiceRepository;
         }
-        public bool UpdateDataFromOnlineServices()
+        /// <inheritdoc />
+        public string UpdateDataFromOnlineServices()
         {
             try
             {
@@ -45,47 +47,70 @@ namespace KuehneNagel.WeatherForecast.Domain.Services
                                "Tallinn-Harku";
 
                 var observationsStation = ObservationsServiceRepository.GetStationData(station);
-                forecastsForecast[] forecasts = (forecastsForecast[])ForecastsServiceRepository.Parse().Items;
+                ForecastsServiceRepository.GetServiceData();
+                var forecasts = ForecastsServiceRepository.Parse().Items;
 
                 var observation = new Observation();
 
                 observation.AirTemperature = double.Parse(observationsStation.airtemperature);
-                observation.Id = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime();
-                observation.Id.AddSeconds(double.Parse(ObservationsServiceRepository.Data.timestamp));
+                observation.Date = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime();
+                observation.Date = observation.Date.AddSeconds(double.Parse(ObservationsServiceRepository.Data.timestamp));
 
                 ObservationRepository.AddOrUpdate(observation);
 
-                foreach(var forecastPlace in forecasts)
+                foreach (var forecastPlaceObj in forecasts)
                 {
+                    forecastsForecast forecastPlace = (forecastsForecast) forecastPlaceObj;
                     var forecast = new Forecast();
-                    forecast.Id = DateTime.Parse(forecastPlace.date);
+                    forecast.Date = DateTime.Parse(forecastPlace.date);
                     //These temperatures are regional
                     forecast.MinDayTemperature = double.Parse(forecastPlace.day[0].tempmin);
                     forecast.MaxNightTemperature = double.Parse(forecastPlace.night[0].tempmax);
-                    //These temperatures are place specific
-                    forecast.MaxDayTemperature = double.Parse(
+                    //These temperatures are place specific but not always available 
+                    try
+                    {
+                        forecast.MaxDayTemperature = double.Parse(
                         (from p in forecastPlace.day[0].place
                          where p.name.Equals(place)
                          select p.tempmax).FirstOrDefault());
-                    forecast.MinNightTemperature = double.Parse(
+                    }
+                    catch
+                    {
+                        forecast.MaxDayTemperature = double.Parse(forecastPlace.day[0].tempmax);
+                    }
+                    try
+                    {
+                        forecast.MinNightTemperature = double.Parse(
                         (from p in forecastPlace.night[0].place
-                        where p.name.Equals(place)
-                        select p.tempmin).FirstOrDefault());
-
+                         where p.name.Equals(place)
+                         select p.tempmin).FirstOrDefault());
+                    }
+                    catch
+                    {
+                        forecast.MinNightTemperature = double.Parse(forecastPlace.night[0].tempmin);
+                    }
                     ForecastRepository.AddOrUpdate(forecast);
                 }
             }
-            catch
+            catch(System.Net.WebException)
             {
-                return false;
+                return "The weather service is off-line";
             }
-            return true;
+            catch(Exception e)
+            {
+                return "There's an Internal error when the server tried to update the weather information: \n" + e.Message;
+            }
+            return "";
         }
+        /// <inheritdoc />
         public bool CurrentTemperatureMatchForecast()
         {
             //Assumption day start 6:00 end 18:00
             if(DateTime.Now.Hour > 6 && DateTime.Now.Hour < 18)
             {
+                if (ForecastRepository.GetTodayForecast() == null)
+                    return true;
+
                 if (GetCurrentTemperature() >= ForecastRepository.GetTodayForecast().MinDayTemperature &&
                     GetCurrentTemperature() <= ForecastRepository.GetTodayForecast().MaxDayTemperature)
                     return true;
@@ -94,6 +119,9 @@ namespace KuehneNagel.WeatherForecast.Domain.Services
             }
             else
             {
+                if (ForecastRepository.GetTodayForecast() == null)
+                    return true;
+
                 if (GetCurrentTemperature() >= ForecastRepository.GetTodayForecast().MinNightTemperature &&
                     GetCurrentTemperature() <= ForecastRepository.GetTodayForecast().MaxNightTemperature)
                     return true;
@@ -101,39 +129,51 @@ namespace KuehneNagel.WeatherForecast.Domain.Services
                     return false;
             }
         }
-
+        /// <inheritdoc />
         public double GetCurrentDayForecastAccuracy()
         {
-            return 100;
-        }
+            var forecast = ForecastRepository.GetTodayForecast();
+            var observations = ObservationRepository.GetAllObservationsFromToday();
+            var numberOfObservations = observations.Count();
 
+            if (numberOfObservations == 0) return 0;
+
+            var numberOfObservationsMatchingForecast = 0;
+            foreach (var observation in observations)
+                if (observation.AirTemperature >= forecast.MinNightTemperature && 
+                    observation.AirTemperature <= forecast.MaxDayTemperature)
+                    numberOfObservationsMatchingForecast++;
+
+            return ( numberOfObservationsMatchingForecast * 100 ) / numberOfObservations;
+        }
+        /// <inheritdoc />
         public double GetCurrentTemperature()
         {
             return ObservationRepository.ReadAll().Last().AirTemperature;
         }
-
+        /// <inheritdoc />
         public IEnumerable<double> GetMaxDayTemperatures()
         {
-            return from fore in ForecastRepository.ReadAll().TakeLast(4)
-                   select fore.MaxDayTemperature;
+            return (from fore in ForecastRepository.ReadAll().TakeLast(4)
+                   select fore.MaxDayTemperature).Take(3);
         }
-
+        /// <inheritdoc />
         public IEnumerable<double> GetMaxNightTemperatures()
         {
-            return from fore in ForecastRepository.ReadAll().TakeLast(4)
-                   select fore.MaxNightTemperature;
+            return (from fore in ForecastRepository.ReadAll().TakeLast(4)
+                   select fore.MaxNightTemperature).Take(3);
         }
-
+        /// <inheritdoc />
         public IEnumerable<double> GetMinDayTemperatures()
         {
-            return from fore in ForecastRepository.ReadAll().TakeLast(4)
-                   select fore.MinDayTemperature;
+            return (from fore in ForecastRepository.ReadAll().TakeLast(4)
+                   select fore.MinDayTemperature).Take(3);
         }
-
+        /// <inheritdoc />
         public IEnumerable<double> GetMinNightTemperatures()
         {
-            return from fore in ForecastRepository.ReadAll().TakeLast(4)
-                   select fore.MinDayTemperature;
+            return (from fore in ForecastRepository.ReadAll().TakeLast(4)
+                   select fore.MinDayTemperature).Take(3);
         }
 
     }

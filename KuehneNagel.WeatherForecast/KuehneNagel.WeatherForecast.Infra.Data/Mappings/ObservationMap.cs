@@ -8,7 +8,16 @@ namespace KuehneNagel.WeatherForecast.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Observation> builder)
         {
-            //TODO: DbMapConfig
+            builder.Property(c => c.Id)
+                .HasColumnType("int");
+
+            builder.Property(c => c.Date)
+                .HasColumnType("datetime")
+                .IsRequired();
+
+            builder.Property(c => c.AirTemperature)
+                .HasColumnType("float")
+                .IsRequired();
         }
     }
 }

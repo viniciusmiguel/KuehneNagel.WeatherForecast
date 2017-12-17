@@ -6,16 +6,19 @@ using System;
 using System.Linq;
 namespace KuehneNagel.WeatherForecast.Infra.Data.Repositories
 {
+    /// <inheritdoc />
     public class ForecastRepository : RepositoryBase<Forecast, int>, IForecastRepository
     {
         public ForecastRepository(EfContext databaseContext) : base(databaseContext)
         {
         }
-
+        /// <inheritdoc />
         public void AddOrUpdate(Forecast forecast)
         {
-            if(DbSet.Find(forecast.Id) !=null)
+            var select = from s in DbSet where s.Date == forecast.Date select s.Id;
+            if (select.Count() > 0)
             {
+                forecast.Id = select.FirstOrDefault();
                 Update(forecast);
             }
             else
@@ -23,13 +26,13 @@ namespace KuehneNagel.WeatherForecast.Infra.Data.Repositories
                 Create(forecast);
             }
         }
-
+        /// <inheritdoc />
         public Forecast GetTodayForecast()
         {
             return (from fore in DbSet
-                    where fore.Id.Day == DateTime.Now.Day && 
-                          fore.Id.Month == DateTime.Now.Month &&
-                          fore.Id.Year == DateTime.Now.Year 
+                    where fore.Date.Day == DateTime.Now.Day && 
+                          fore.Date.Month == DateTime.Now.Month &&
+                          fore.Date.Year == DateTime.Now.Year 
                     select fore).FirstOrDefault();
         }
     }

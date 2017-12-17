@@ -1,8 +1,14 @@
 ﻿namespace KuehneNagel.WeatherForecast.Domain.Interfaces.Repositories.Generic
 {
+    /// <summary>
+    /// Represents a Service Repository
+    /// </summary>
+    /// <typeparam name="T">The entity type of the service</typeparam>
     public interface IServiceRepositoryBase<T> where T : class
     {
-        string Xml { get; set; }
+        /// <summary>
+        /// Retrieves the data from service
+        /// </summary>
         void GetServiceData();
     }
 }
