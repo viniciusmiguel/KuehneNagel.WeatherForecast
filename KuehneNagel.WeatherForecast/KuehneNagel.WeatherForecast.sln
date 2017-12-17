@@ -21,7 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KuehneNagel.WeatherForecast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KuehneNagel.WeatherForecast.Frontend", "KuehneNagel.WeatherForecast.Frontend\KuehneNagel.WeatherForecast.Frontend.csproj", "{6BA9FA06-8C51-4F8F-8ED1-F8730FD741F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuehneNagel.WeatherForecast.Infra.Data.Tests", "KuehneNagel.WeatherForecast.Infra.Data.Tests\KuehneNagel.WeatherForecast.Infra.Data.Tests.csproj", "{04721011-73AA-4752-8EB5-6E25B4AA79F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KuehneNagel.WeatherForecast.Infra.Data.Tests", "KuehneNagel.WeatherForecast.Infra.Data.Tests\KuehneNagel.WeatherForecast.Infra.Data.Tests.csproj", "{04721011-73AA-4752-8EB5-6E25B4AA79F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuehneNagel.WeatherForecast.Application.Tests", "KuehneNagel.WeatherForecast.Application.Tests\KuehneNagel.WeatherForecast.Application.Tests.csproj", "{5CFCA484-D66B-4792-9573-4CE39F662958}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuehneNagel.WeatherForecast.Domain.Tests", "KuehneNagel.WeatherForecast.Domain.Tests\KuehneNagel.WeatherForecast.Domain.Tests.csproj", "{64F8C8AC-C15E-4026-BEBE-F4968A285762}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,14 @@ Global
 		{04721011-73AA-4752-8EB5-6E25B4AA79F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04721011-73AA-4752-8EB5-6E25B4AA79F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04721011-73AA-4752-8EB5-6E25B4AA79F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFCA484-D66B-4792-9573-4CE39F662958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFCA484-D66B-4792-9573-4CE39F662958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFCA484-D66B-4792-9573-4CE39F662958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFCA484-D66B-4792-9573-4CE39F662958}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64F8C8AC-C15E-4026-BEBE-F4968A285762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F8C8AC-C15E-4026-BEBE-F4968A285762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F8C8AC-C15E-4026-BEBE-F4968A285762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F8C8AC-C15E-4026-BEBE-F4968A285762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +76,8 @@ Global
 		{13879933-44C5-43AA-9B59-F3608C03ABF3} = {65F36604-6F07-4919-B967-C78BCF245D3D}
 		{6BA9FA06-8C51-4F8F-8ED1-F8730FD741F2} = {75317E04-6BE0-499F-8EC2-E3D144A709D5}
 		{04721011-73AA-4752-8EB5-6E25B4AA79F4} = {65F36604-6F07-4919-B967-C78BCF245D3D}
+		{5CFCA484-D66B-4792-9573-4CE39F662958} = {6C454555-DA5E-4F74-82D7-8D1793AA9455}
+		{64F8C8AC-C15E-4026-BEBE-F4968A285762} = {BA788414-831A-4BC2-BD2A-33587D538942}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39C43AA7-BB16-46A9-BFB0-9B663D36B3C8}

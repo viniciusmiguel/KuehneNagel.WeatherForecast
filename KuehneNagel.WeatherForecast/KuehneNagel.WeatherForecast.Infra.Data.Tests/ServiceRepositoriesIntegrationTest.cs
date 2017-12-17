@@ -6,7 +6,7 @@ using System;
 namespace KuehneNagel.WeatherForecast.Infra.Data.Tests
 {
     [TestClass]
-    public class XmlRepositoryTest
+    public class ServiceRepositoriesIntegrationTest
     {
         [TestMethod]
         public void GetForecastDataFromServer()

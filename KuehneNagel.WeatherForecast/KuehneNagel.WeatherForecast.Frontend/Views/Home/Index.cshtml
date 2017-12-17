@@ -32,7 +32,7 @@
 
         Current Temperature Match Forecast: @Html.DisplayFor(model => model.CurrentTemperatureMatchForecast)<br />
 
-        Current Day Forecast Accuracy: @Html.DisplayFor(model => model.CurrentDayForecastAccuracy)<br />
+        Current Day Forecast Accuracy: @Html.DisplayFor(model => model.CurrentDayForecastAccuracy) %<br />
     </div>
     <div class="forecast-container">
         <div class="forecast-row">
@@ -44,30 +44,30 @@
         <div class="forecast-row">
             <div class="forecast-col">Max Day</div>
             @foreach (var maxDay in Model.MaxDayTemperatures)
-        {
-            <div class="forecast-col">@maxDay</div>
-    }
+            {
+                <div class="forecast-col">@maxDay</div>
+            }
         </div>
         <div class="forecast-row">
             <div class="forecast-col">Min Day</div>
             @foreach (var minDay in Model.MinDayTemperatures)
-        {
-            <div class="forecast-col">@minDay</div>
-    }
+            {
+                <div class="forecast-col">@minDay</div>
+            }
         </div>
         <div class="forecast-row">
             <div class="forecast-col">Max Night</div>
             @foreach (var maxNight in Model.MaxNightTemperatures)
-        {
-            <div class="forecast-col">@maxNight</div>
-    }
+            {
+                <div class="forecast-col">@maxNight</div>
+            }
         </div>
         <div class="forecast-row">
-            <div class="forecast-col">Max Night</div>
+            <div class="forecast-col">Min Night</div>
             @foreach (var minNight in Model.MinNightTemperatures)
-        {
-            <div class="forecast-col">@minNight</div>
-    }
+            {
+                <div class="forecast-col">@minNight</div>
+            }
         </div>
     </div>
 </div>
