@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 
 namespace KuehneNagel.WeatherForecast.Domain.Interfaces.Services
@@ -22,7 +23,7 @@ namespace KuehneNagel.WeatherForecast.Domain.Interfaces.Services
         /// Check if temperature match forecast
         /// </summary>
         /// <returns>True if temperature match forecast</returns>
-        bool CurrentTemperatureMatchForecast();
+        bool CurrentTemperatureMatchForecast(DateTime dateTime);
         /// <summary>
         /// Get min day temperatures for the next 3 days
         /// </summary>

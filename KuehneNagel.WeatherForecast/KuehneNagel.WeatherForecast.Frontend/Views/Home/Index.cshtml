@@ -24,52 +24,53 @@
 </head>
 <body>
 
-<div>
-    <h4>Weather Forecast For Tallinn - Harku</h4>
-    <hr />
-    <div class="actual-temps">
-        Current Temperature: @Html.DisplayFor(model => model.CurrentTemperature) <br/>
+    <div>
+        <h4>Weather Forecast For Tallinn - Harku</h4>
+        <hr />
+        <div class="actual-temps">
+            Current Temperature: @Html.DisplayFor(model => model.CurrentTemperature) <br />
 
-        Current Temperature Match Forecast: @Html.DisplayFor(model => model.CurrentTemperatureMatchForecast)<br />
+            Current Temperature Match Forecast: @Html.DisplayFor(model => model.CurrentTemperatureMatchForecast)<br />
 
-        Current Day Forecast Accuracy: @Html.DisplayFor(model => model.CurrentDayForecastAccuracy) %<br />
-    </div>
-    <div class="forecast-container">
-        <div class="forecast-row">
-            <div class="forecast-col"></div>
-            <div class="forecast-col">Today</div>
-            <div class="forecast-col">Tomorow</div>
-            <div class="forecast-col">After Tomorow</div>
+            Current Day Forecast Accuracy: @Html.DisplayFor(model => model.CurrentDayForecastAccuracy) %<br />
         </div>
-        <div class="forecast-row">
-            <div class="forecast-col">Max Day</div>
-            @foreach (var maxDay in Model.MaxDayTemperatures)
+        <div class="forecast-container">
+            <div class="forecast-row">
+                <div class="forecast-col"></div>
+                <div class="forecast-col">Today</div>
+                <div class="forecast-col">Tomorow</div>
+                <div class="forecast-col">After Tomorow</div>
+            </div>
+            <div class="forecast-row">
+                <div class="forecast-col">Max Day</div>
+                @foreach (var maxDay in Model.MaxDayTemperatures)
             {
                 <div class="forecast-col">@maxDay</div>
-            }
-        </div>
-        <div class="forecast-row">
-            <div class="forecast-col">Min Day</div>
-            @foreach (var minDay in Model.MinDayTemperatures)
+        }
+            </div>
+            <div class="forecast-row">
+                <div class="forecast-col">Min Day</div>
+                @foreach (var minDay in Model.MinDayTemperatures)
             {
                 <div class="forecast-col">@minDay</div>
-            }
-        </div>
-        <div class="forecast-row">
-            <div class="forecast-col">Max Night</div>
-            @foreach (var maxNight in Model.MaxNightTemperatures)
+        }
+            </div>
+            <div class="forecast-row">
+                <div class="forecast-col">Max Night</div>
+                @foreach (var maxNight in Model.MaxNightTemperatures)
             {
                 <div class="forecast-col">@maxNight</div>
-            }
-        </div>
-        <div class="forecast-row">
-            <div class="forecast-col">Min Night</div>
-            @foreach (var minNight in Model.MinNightTemperatures)
+        }
+            </div>
+            <div class="forecast-row">
+                <div class="forecast-col">Min Night</div>
+                @foreach (var minNight in Model.MinNightTemperatures)
             {
                 <div class="forecast-col">@minNight</div>
-            }
+        }
+            </div>
         </div>
+        @Html.DisplayFor(model => model.ErrorMessage)
     </div>
-</div>
 </body>
 </html>

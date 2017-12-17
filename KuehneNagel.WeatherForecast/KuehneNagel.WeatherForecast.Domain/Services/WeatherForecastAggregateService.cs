@@ -7,6 +7,7 @@ using KuehneNagel.WeatherForecast.Domain.Interfaces.Services;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using KuehneNagel.WeatherForecast.Domain.Extensions;
 
 namespace KuehneNagel.WeatherForecast.Domain.Services
 {
@@ -50,11 +51,11 @@ namespace KuehneNagel.WeatherForecast.Domain.Services
                 ForecastsServiceRepository.GetServiceData();
                 var forecasts = ForecastsServiceRepository.Parse().Items;
 
-                var observation = new Observation();
-
-                observation.AirTemperature = double.Parse(observationsStation.airtemperature);
-                observation.Date = new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime();
-                observation.Date = observation.Date.AddSeconds(double.Parse(ObservationsServiceRepository.Data.timestamp));
+                var observation = new Observation
+                {
+                    AirTemperature = double.Parse(observationsStation.airtemperature),
+                    Date = new DateTime().FromUnixTimeStamp(double.Parse(ObservationsServiceRepository.Data.timestamp))
+                };
 
                 ObservationRepository.AddOrUpdate(observation);
 
@@ -98,19 +99,20 @@ namespace KuehneNagel.WeatherForecast.Domain.Services
             }
             catch(Exception e)
             {
-                return "There's an Internal error when the server tried to update the weather information: \n" + e.Message;
+                return "There was an Internal error when the server tried to update the weather information: \n" + e.Message;
             }
             return "";
         }
         /// <inheritdoc />
-        public bool CurrentTemperatureMatchForecast()
+        public bool CurrentTemperatureMatchForecast(DateTime dateTime)
         {
-            //Assumption day start 6:00 end 18:00
-            if(DateTime.Now.Hour > 6 && DateTime.Now.Hour < 18)
-            {
-                if (ForecastRepository.GetTodayForecast() == null)
-                    return true;
+            //Assumption if there's no data return true
+            if (ForecastRepository.GetTodayForecast() == null)
+                return true;
 
+            //Assumption day start 6:00, end 18:00
+            if (dateTime.Hour >= 6 && dateTime.Hour < 18)
+            {
                 if (GetCurrentTemperature() >= ForecastRepository.GetTodayForecast().MinDayTemperature &&
                     GetCurrentTemperature() <= ForecastRepository.GetTodayForecast().MaxDayTemperature)
                     return true;
@@ -119,9 +121,6 @@ namespace KuehneNagel.WeatherForecast.Domain.Services
             }
             else
             {
-                if (ForecastRepository.GetTodayForecast() == null)
-                    return true;
-
                 if (GetCurrentTemperature() >= ForecastRepository.GetTodayForecast().MinNightTemperature &&
                     GetCurrentTemperature() <= ForecastRepository.GetTodayForecast().MaxNightTemperature)
                     return true;
@@ -173,7 +172,7 @@ namespace KuehneNagel.WeatherForecast.Domain.Services
         public IEnumerable<double> GetMinNightTemperatures()
         {
             return (from fore in ForecastRepository.ReadAll().TakeLast(4)
-                   select fore.MinDayTemperature).Take(3);
+                   select fore.MinNightTemperature).Take(3);
         }
 
     }

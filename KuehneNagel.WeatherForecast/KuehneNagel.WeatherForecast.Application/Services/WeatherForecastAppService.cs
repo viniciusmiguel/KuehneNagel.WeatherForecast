@@ -1,6 +1,7 @@
 ﻿using KuehneNagel.WeatherForecast.Application.Interfaces;
 using KuehneNagel.WeatherForecast.Application.ViewModels;
 using KuehneNagel.WeatherForecast.Domain.Interfaces.Services;
+using System;
 
 namespace KuehneNagel.WeatherForecast.Application.Services
 {
@@ -16,11 +17,11 @@ namespace KuehneNagel.WeatherForecast.Application.Services
         public WeatherForecastViewModel GetWeatherData()
         {
             var viewModel = new WeatherForecastViewModel();
-            WeatherForecastAggregateService.UpdateDataFromOnlineServices();
+            viewModel.ErrorMessage = WeatherForecastAggregateService.UpdateDataFromOnlineServices();
             viewModel.CurrentTemperature = WeatherForecastAggregateService
                 .GetCurrentTemperature();
             viewModel.CurrentTemperatureMatchForecast = WeatherForecastAggregateService
-                .CurrentTemperatureMatchForecast();
+                .CurrentTemperatureMatchForecast(DateTime.Now);
             viewModel.CurrentDayForecastAccuracy = WeatherForecastAggregateService
                 .GetCurrentDayForecastAccuracy();
             viewModel.MinDayTemperatures = WeatherForecastAggregateService

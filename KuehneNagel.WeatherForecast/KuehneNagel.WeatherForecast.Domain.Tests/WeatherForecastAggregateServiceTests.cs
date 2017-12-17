@@ -62,7 +62,32 @@ namespace KuehneNagel.WeatherForecast.Domain.Tests
                         MinDayTemperature = 3,
                         MaxNightTemperature = 2,
                         MinNightTemperature = 1
-                    }
+                    },
+                    new Forecast()
+                    {
+                        Date = new DateTime(2017, 1, 2),
+                        MaxDayTemperature = 2,
+                        MinDayTemperature = 2,
+                        MaxNightTemperature = 2,
+                        MinNightTemperature = 2
+                    },
+                    new Forecast()
+                    {
+                        Date = new DateTime(2017, 1, 3),
+                        MaxDayTemperature = 3,
+                        MinDayTemperature = 3,
+                        MaxNightTemperature = 3,
+                        MinNightTemperature = 3
+                    },
+                    new Forecast()
+                    {
+                        Date = new DateTime(2017, 1, 4),
+                        MaxDayTemperature = 4,
+                        MinDayTemperature = 4,
+                        MaxNightTemperature = 4,
+                        MinNightTemperature = 4
+                    },
+
                 };    
             }
 
@@ -90,9 +115,25 @@ namespace KuehneNagel.WeatherForecast.Domain.Tests
                 return new List<Observation>() {
                     new Observation()
                     {
-                        AirTemperature=4,
-                        Date= new DateTime(2017,1,1),
+                        AirTemperature=0,
+                        Date= new DateTime(2017,1,1,4,0,0),
+                    },
+                    new Observation()
+                    {
+                        AirTemperature=5,
+                        Date= new DateTime(2017,1,1,7,0,0),
+                    },
+                    new Observation()
+                    {
+                        AirTemperature=6,
+                        Date= new DateTime(2017,1,1,13,0,0),
+                    },
+                    new Observation()
+                    {
+                        AirTemperature=1,
+                        Date= new DateTime(2017,1,1,18,30,0),
                     }
+
                 };
             }
 
@@ -111,9 +152,30 @@ namespace KuehneNagel.WeatherForecast.Domain.Tests
                 return new List<Observation>() {
                     new Observation()
                     {
-                        AirTemperature=4,
-                        Date= new DateTime(2017,1,1),
+                        AirTemperature=0,
+                        Date= new DateTime(2016,1,1,4,0,0),
+                    },
+                    new Observation()
+                    {
+                        AirTemperature=0,
+                        Date= new DateTime(2017,1,1,4,0,0),
+                    },
+                    new Observation()
+                    {
+                        AirTemperature=5,
+                        Date= new DateTime(2017,1,1,7,0,0),
+                    },
+                    new Observation()
+                    {
+                        AirTemperature=6,
+                        Date= new DateTime(2017,1,1,13,0,0),
+                    },
+                    new Observation()
+                    {
+                        AirTemperature=1,
+                        Date= new DateTime(2017,1,1,18,30,0),
                     }
+
                 };
             }
 
@@ -172,7 +234,10 @@ namespace KuehneNagel.WeatherForecast.Domain.Tests
                 observationRepository,
                 forecastsServiceRepository,
                 observationsServiceRepository);
-            aggregateService.CurrentTemperatureMatchForecast();
+            Assert.IsTrue(aggregateService.CurrentTemperatureMatchForecast(new DateTime(2017,1,1,12,0,0)),
+                "Current Day Temperature Status Invalid");
+            Assert.IsFalse(aggregateService.CurrentTemperatureMatchForecast(new DateTime(2017, 1, 1, 23, 0, 0)),
+                "Current Night Temperature Status Invalid");
         }
         [TestMethod]
         public void AggregateService_GetCurrentDayForecastAccuracy()
@@ -186,7 +251,8 @@ namespace KuehneNagel.WeatherForecast.Domain.Tests
                 observationRepository,
                 forecastsServiceRepository,
                 observationsServiceRepository);
-            aggregateService.GetCurrentDayForecastAccuracy();
+            Assert.IsTrue(aggregateService.GetCurrentDayForecastAccuracy() == 50,
+                "Accuracy calculation does not match");
         }
         [TestMethod]
         public void AggregateService_GetCurrentTemperature()
@@ -200,7 +266,8 @@ namespace KuehneNagel.WeatherForecast.Domain.Tests
                 observationRepository,
                 forecastsServiceRepository,
                 observationsServiceRepository);
-            aggregateService.GetCurrentTemperature();
+            Assert.IsTrue(aggregateService.GetCurrentTemperature() == 1,
+                "Current temperature does not match");
         }
         [TestMethod]
         public void AggregateService_GetMaxDayTemperatures()
@@ -214,7 +281,13 @@ namespace KuehneNagel.WeatherForecast.Domain.Tests
                 observationRepository,
                 forecastsServiceRepository,
                 observationsServiceRepository);
-            aggregateService.GetMaxDayTemperatures();
+            var maxDayTemp = aggregateService.GetMaxDayTemperatures().GetEnumerator();
+            maxDayTemp.MoveNext();
+            Assert.IsTrue(maxDayTemp.Current == 5);
+            maxDayTemp.MoveNext();
+            Assert.IsTrue(maxDayTemp.Current == 2);
+            maxDayTemp.MoveNext();
+            Assert.IsTrue(maxDayTemp.Current == 3);
         }
         [TestMethod]
         public void AggregateService_GetMaxNightTemperatures()
@@ -228,7 +301,13 @@ namespace KuehneNagel.WeatherForecast.Domain.Tests
                 observationRepository,
                 forecastsServiceRepository,
                 observationsServiceRepository);
-            aggregateService.GetMaxNightTemperatures();
+            var maxNightTemp = aggregateService.GetMaxNightTemperatures().GetEnumerator();
+            maxNightTemp.MoveNext();
+            Assert.IsTrue(maxNightTemp.Current == 2);
+            maxNightTemp.MoveNext();
+            Assert.IsTrue(maxNightTemp.Current == 2);
+            maxNightTemp.MoveNext();
+            Assert.IsTrue(maxNightTemp.Current == 3);
         }
         [TestMethod]
         public void AggregateService_GetMinDayTemperatures()
@@ -242,8 +321,13 @@ namespace KuehneNagel.WeatherForecast.Domain.Tests
                 observationRepository,
                 forecastsServiceRepository,
                 observationsServiceRepository);
-            aggregateService.GetMinDayTemperatures();
-
+            var minDayTemp = aggregateService.GetMinDayTemperatures().GetEnumerator();
+            minDayTemp.MoveNext();
+            Assert.IsTrue(minDayTemp.Current == 3);
+            minDayTemp.MoveNext();
+            Assert.IsTrue(minDayTemp.Current == 2);
+            minDayTemp.MoveNext();
+            Assert.IsTrue(minDayTemp.Current == 3);
         }
         [TestMethod]
         public void AggregateService_GetMinNightTemperatures()
@@ -257,7 +341,14 @@ namespace KuehneNagel.WeatherForecast.Domain.Tests
                 observationRepository,
                 forecastsServiceRepository,
                 observationsServiceRepository);
-            aggregateService.GetMinNightTemperatures();
+            var minNightTemp = aggregateService.GetMinNightTemperatures().GetEnumerator();
+
+            minNightTemp.MoveNext();
+            Assert.IsTrue(minNightTemp.Current == 1);
+            minNightTemp.MoveNext();
+            Assert.IsTrue(minNightTemp.Current == 2);
+            minNightTemp.MoveNext();
+            Assert.IsTrue(minNightTemp.Current == 3);
         }
         [TestMethod]
         public void AggregateService_UpdateDataFromOnlineServices()

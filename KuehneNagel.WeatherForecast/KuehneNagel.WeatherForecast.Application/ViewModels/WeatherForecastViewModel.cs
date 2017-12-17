@@ -18,5 +18,7 @@ namespace KuehneNagel.WeatherForecast.Application.ViewModels
         public IEnumerable<double> MinNightTemperatures { get; set; }
 
         public IEnumerable<double> MaxNightTemperatures { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

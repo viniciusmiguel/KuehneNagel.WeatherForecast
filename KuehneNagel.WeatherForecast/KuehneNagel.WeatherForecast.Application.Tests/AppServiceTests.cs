@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using KuehneNagel.WeatherForecast.Application.Interfaces;
 using KuehneNagel.WeatherForecast.Application.Services;
@@ -11,7 +12,7 @@ namespace KuehneNagel.WeatherForecast.Application.Tests
     {
         private class weatherAggregateServiceMock : IWeatherForecastAggregateService
         {
-            public bool CurrentTemperatureMatchForecast()
+            public bool CurrentTemperatureMatchForecast(DateTime dateTime)
             {
                 return true;
             }
@@ -57,7 +58,7 @@ namespace KuehneNagel.WeatherForecast.Application.Tests
             var mock = new weatherAggregateServiceMock();
             IWeatherForecastAppService  appService = new  WeatherForecastAppService(mock);
             var viewModel = appService.GetWeatherData();
-            Assert.IsTrue(mock.CurrentTemperatureMatchForecast() == viewModel.CurrentTemperatureMatchForecast,
+            Assert.IsTrue(mock.CurrentTemperatureMatchForecast(DateTime.Now) == viewModel.CurrentTemperatureMatchForecast,
                 "Current Temperature Match Forecast Not Valid!");
 
             Assert.IsTrue(mock.GetCurrentDayForecastAccuracy() == viewModel.CurrentDayForecastAccuracy,
